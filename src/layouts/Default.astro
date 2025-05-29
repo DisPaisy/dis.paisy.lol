@@ -15,6 +15,7 @@ import Footer from '@components/Footer.astro';
 <html lang="en" class="bg-gray-200 dark:bg-gray-900 text-black dark:text-white">
     <head>
         <Meta title={title || "DisPaisy"} />
+        <slot name="head" />
     </head>
 
     <body class="p-[50px]">
