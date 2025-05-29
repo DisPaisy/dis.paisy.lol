@@ -1,0 +1,42 @@
+---
+import Layout from '@layouts/Default.astro';
+
+const url = new URL(Astro.request.url);
+const device = url.searchParams.get('device');
+const geo = url.searchParams.get('geo');
+
+let geoIt = '';
+let geoEn = '';
+if (geo === 'on') {
+    geoIt = 'Il dispositivo è geolocalizzato 24/7';
+    geoEn = 'This device is geolocated 24/7';
+} else if (geo === 'on-ish') {
+    geoIt = 'Questo dispositivo è geolocalizzato';
+    geoEn = 'This device is geolocated';
+}
+---
+
+{device && (
+    <Layout title="Lost or Stolen Device">
+        <meta slot="head" name="robots" content="noindex,nofollow" />
+        <script>
+            function switchTo(lang) {
+                document.getElementById('lang-en').classList.toggle('hidden', lang !== 'en');
+                document.getElementById('lang-it').classList.toggle('hidden', lang !== 'it');
+            }
+        </script>
+        <div class="prose dark:prose-dark">
+            <h1>Lost or Stolen Device</h1>
+            <div id="lang-en">
+                <p>If you have found this device <strong>{device}</strong>, please contact me at <a href="mailto:dis@paisy.lol">dis@paisy.lol</a> or WhatsApp <a href="https://wa.me/393509683948">+393509683948</a>.</p>
+                {geoEn && <p>{geoEn}</p>}
+                <button onclick="switchTo('it')" class="mt-4 px-4 py-2 bg-blue-600 text-white rounded">🇮🇹</button>
+            </div>
+            <div id="lang-it" class="hidden">
+                <p>Se hai trovato questo dispositivo <strong>{device}</strong>, contattami via email a <a href="mailto:dis@paisy.lol">dis@paisy.lol</a> oppure su WhatsApp <a href="https://wa.me/393509683948">+393509683948</a>.</p>
+                {geoIt && <p>{geoIt}</p>}
+                <button onclick="switchTo('en')" class="mt-4 px-4 py-2 bg-blue-600 text-white rounded">🏴</button>
+            </div>
+        </div>
+    </Layout>
+)}
