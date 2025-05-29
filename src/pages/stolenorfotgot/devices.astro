@@ -1,0 +1,53 @@
+---
+import Layout from '@layouts/Default.astro';
+---
+
+<meta slot="head" name="robots" content="noindex,nofollow" />
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const params = new URLSearchParams(window.location.search);
+        const device = params.get('device');
+        if (!device) return;
+        document.getElementById('content').classList.remove('hidden');
+        document.querySelectorAll('.device-name').forEach(el => el.textContent = device);
+        const geo = params.get('geo');
+        const geoMap = {
+            'on': {
+                en: 'This device is geolocated 24/7',
+                it: 'Il dispositivo è geolocalizzato 24/7'
+            },
+            'on-ish': {
+                en: 'This device is geolocated',
+                it: 'Questo dispositivo è geolocalizzato'
+            }
+        };
+        if (geoMap[geo]) {
+            document.getElementById('geo-en').textContent = geoMap[geo].en;
+            document.getElementById('geo-it').textContent = geoMap[geo].it;
+        }
+    });
+    function switchToIt() {
+        document.getElementById('lang-en').classList.add('hidden');
+        document.getElementById('lang-it').classList.remove('hidden');
+    }
+    function switchToEn() {
+        document.getElementById('lang-it').classList.add('hidden');
+        document.getElementById('lang-en').classList.remove('hidden');
+    }
+</script>
+
+<Layout title="Lost or Stolen Device">
+    <div id="content" class="prose dark:prose-dark hidden">
+        <h1>Lost or Stolen Device</h1>
+        <div id="lang-en">
+            <p>If you have found <span class="device-name">this device</span>, please contact me at <a href="mailto:dis@paisy.lol">dis@paisy.lol</a> or WhatsApp <a href="https://wa.me/393509683948">+393509683948</a>.</p>
+            <p id="geo-en"></p>
+            <button onclick="switchToIt()" class="mt-4 px-4 py-2 bg-blue-600 text-white rounded">🇮🇹</button>
+        </div>
+        <div id="lang-it" class="hidden">
+            <p>Se hai trovato <span class="device-name">questo dispositivo</span>, contattami via email a <a href="mailto:dis@paisy.lol">dis@paisy.lol</a> oppure su WhatsApp <a href="https://wa.me/393509683948">+393509683948</a>.</p>
+            <p id="geo-it"></p>
+            <button onclick="switchToEn()" class="mt-4 px-4 py-2 bg-blue-600 text-white rounded">🏴</button>
+        </div>
+    </div>
+</Layout>
