@@ -36,7 +36,7 @@ export const MusicCard = () => {
                 <div className="font-semibold text-sm sm:text-regular">
                     {lastFM.status === 'playing' ?
                     `Listening to ${truncate(lastFM.song.name, 25)}` :
-                    'Not working anymore as I now use Apple Music :P'}
+                    'Not listening to anything :P'}
                 </div>
                 <p className="text-xxs">
                     Apple Music
