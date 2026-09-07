@@ -39,7 +39,7 @@ export const MusicCard = () => {
                     'Not listening to anything :P'}
                 </div>
                 <p className="text-xxs">
-                    Apple Music
+                    Spotify
                 </p>
             </div>
         </a>
